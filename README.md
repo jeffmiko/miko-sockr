@@ -1,2 +1,2 @@
-# node-sockr
+# miko-sockr
 WebSocket routing service
