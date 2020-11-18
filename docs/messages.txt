@@ -1,0 +1,28 @@
+
+Request
+ - header
+    - service  - The service requested (required)
+    - method   - The method requested  (required)
+    - id       - Unique identifier for this request (optional)
+    - <any>    - Optional headers from by client
+ - params      - Parameters sent from client
+
+Response 
+ - header      - Duplicate of request header
+ - data        - The data to be sent to the client request (optional)
+ - error       - Any error that surfaced (optional)
+
+RequestContext
+ - request    - Request from client
+ - response   - Response from server
+ - client     - Client WebSocket connection
+ - app        - The application
+
+
+ChannelContext
+ - header 
+    - channel - The name of the channel 
+    - origin  - The id of the original channel app (prevents duplication)
+ - data
+
+

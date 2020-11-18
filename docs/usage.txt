@@ -1,0 +1,39 @@
+
+Process flow 
+  - Request received from client
+  - App level before hooks
+  - Service level before hooks
+  - Method level before hooks
+  - Service method called
+  - Method level after hooks
+  - Service level after hooks
+  - App level after hooks
+  - Response sent to client if a result exists
+
+Stopping the flow
+  - If context.stop is set to true anywhere then processing stops
+
+Error flow 
+  - Use method error if exists
+  - Use service error if exists
+  - Use app error if exists
+  - Use default error (send error to client)
+
+
+USAGE EXAMPLES:
+
+// app level hooks
+app.hooks().before(fn1, fn2).after(fn3).error(myerrfunc)
+
+// use a service class
+app.use("topics", new TopicService())
+
+// service level hooks (executed for all methods)
+app.service("topics").hooks().before(fn1, fn2).after(fn3).error(myerrfunc)
+
+// service method hooks
+app.service("topics").hooks("find").before(fn1, fn2).after(fn3).error(fn4)
+app.service("topics").hooks("get").before(fn1, fn2).after(fn3).error(fn4)
+
+
+
