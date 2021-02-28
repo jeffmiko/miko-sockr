@@ -32,6 +32,7 @@ SockrCluster      - Creates load balanced clustered main application
 =================================================================================
 Database specific services - separate repos/packages
 =================================================================================
-miko-sockr-mariadb (todo)
-miko-sockr-mysql (todo)
+miko-sockr-mariadb
+miko-sockr-mysql
+miko-sockr-postgresql
 
