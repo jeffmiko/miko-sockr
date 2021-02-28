@@ -1,0 +1,37 @@
+=================================================================================
+CORE
+=================================================================================
+Packages          - npm i jsonwebtoken ws redis
+
+SockrApp          - Main application
+SockrAuth.jwt     - Returns JWT authentication function
+                  - options
+                    - property (name to use on socket object - defaults to "user")
+                    - header (header name to extract JWT - defaults to null)
+                    - query (query string variable to extract JWT - defaults to "token")
+SockrParser.json  - Returns JSON message parser function
+SockrService      - Abstract class for implemeting service objects
+SockrHooks        - Manages hooks for applications or services
+
+SockrChannel      - Manages channel membership
+
+
+=================================================================================
+Multiple nodes
+=================================================================================
+SockrRedisApp     - Main application with Redis support
+
+SockrCluster      - Creates load balanced clustered main application
+                  - Uses a least-connection algorithm
+                  - options
+                    - header (header name to extract id - defaults to null)
+                    - query (query string variable to extract id - defaults to "sid")
+                  - See: https://github.com/darrachequesne/socket.io-sticky/blob/main/index.js
+
+
+=================================================================================
+Database specific services - separate repos/packages
+=================================================================================
+miko-sockr-mariadb (todo)
+miko-sockr-mysql (todo)
+

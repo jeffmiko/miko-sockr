@@ -1,6 +1,6 @@
-const { SockrHooks, SockrHookMethods } = require("./hooks")
-const { SockrService } = require("./service")
-const { SockrApp } = require("./app")
+const { SockrHooks, SockrHookMethods } = require("./lib/SockrHooks")
+const { SockrService } = require("./lib/SockrService")
+const { SockrApp } = require("./lib/SockrApp")
 
 function create(options = {}) {
   const app = new SockrApp(options)

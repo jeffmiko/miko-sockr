@@ -1,28 +1,22 @@
-
-Request
+Request from client to server
  - header
     - service  - The service requested (required)
     - method   - The method requested  (required)
     - id       - Unique identifier for this request (optional)
-    - <any>    - Optional headers from by client
- - params      - Parameters sent from client
+    - channel  - The name of the channel if response was broadcasted (set internally)
+    - origin   - The id of the client originating the request (set internally)
+    - <any>    - Any other headers from client (optional)
+ - params      - Parameters sent from client (optional)
 
-Response 
+Response from server to client
  - header      - Duplicate of request header
- - data        - The data to be sent to the client request (optional)
+ - data        - The data to be sent to the client (optional)
  - error       - Any error that surfaced (optional)
 
-RequestContext
+Context passed internally in SockerApp
  - request    - Request from client
  - response   - Response from server
  - client     - Client WebSocket connection
  - app        - The application
-
-
-ChannelContext
- - header 
-    - channel - The name of the channel 
-    - origin  - The id of the original channel app (prevents duplication)
- - data
 
 
