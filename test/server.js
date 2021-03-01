@@ -3,6 +3,7 @@ const SockrApp = require("../lib/SockrApp")
 const SockrService = require("../lib/SockrService")
 const SockrRedisApp = require("../lib/SockrRedisApp")
 const http = require("http")
+const { SockrBeforeHooks, SockrAfterHooks } = require("../lib/SockrHookUtils")
 
 const app = new SockrApp()
 //const app = new SockrRedisApp()
@@ -32,8 +33,11 @@ cars.find = function(params) {
 }
 let lastClient = {}
 app.use("cars", cars)
+app.hooks().before(SockrBeforeHooks.addStartTime())
 app.hooks().before(async(context)=> console.log("app before"))
 app.hooks().after(async(context)=> console.log("app after"))
+app.hooks().after(SockrAfterHooks.addStopTime())
+app.hooks().after(SockrAfterHooks.addElapsedTime())
 app.service("cars").hooks().before(async(context)=> console.log("cars before"))
 app.service("cars").hooks().after(async(context)=> console.log("cars after"))
 app.service("cars").hooks("find").before(async (context) => console.log("cars find before"))
