@@ -88,4 +88,7 @@ setTimeout(() => {
 }, 5000)
 
 setTimeout(() => ws.close(), 12000)
-setTimeout(() => app.close(), 12500)
+setTimeout(() => {
+  app.close()
+  if (typeof httpServer !== undefined) httpServer.close()
+}, 12500)
