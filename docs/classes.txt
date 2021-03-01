@@ -20,13 +20,7 @@ SockrChannel      - Manages channel membership
 Multiple nodes
 =================================================================================
 SockrRedisApp     - Main application with Redis support
-
-SockrCluster      - Creates load balanced clustered main application
-                  - Uses a least-connection algorithm
-                  - options
-                    - header (header name to extract id - defaults to null)
-                    - query (query string variable to extract id - defaults to "sid")
-                  - See: https://github.com/darrachequesne/socket.io-sticky/blob/main/index.js
+                  - Redis pub/sub model ensures all nodes receive broadcasts
 
 
 =================================================================================

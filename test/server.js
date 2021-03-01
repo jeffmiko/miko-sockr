@@ -2,15 +2,25 @@ const WebSocket = require('ws');
 const SockrApp = require("../lib/SockrApp")
 const SockrService = require("../lib/SockrService")
 const SockrRedisApp = require("../lib/SockrRedisApp")
+const http = require("http")
 
+const app = new SockrApp()
+//const app = new SockrRedisApp()
 
-//const app = new SockrApp()
-const app = new SockrRedisApp()
-app.listen(8080)
-app.on("connection", ({client, request}) => {
-  console.log("connected", client.id)
+// can attach to an http/https server
+const httpServer = http.createServer();
+app.attach(httpServer)
+httpServer.listen(8080);
+// can also just call listen
+//app.listen(8080);
+
+app.on("connection", (websocket, request) => {
+  console.log("connected", websocket.id)
 })
-app.on("error", ({error, client, request}) => {
+app.on("close", (websocket, request) => {
+  console.log("closed", websocket.id)
+})
+app.on("error", (websocket, request, error, context) => {
   console.log("server error", error)
 })
 
@@ -77,7 +87,5 @@ setTimeout(() => {
   app.channel(channel).send(context.response)
 }, 5000)
 
-setTimeout(() => {
-  ws.close()
-  app.close()
-}, 12000)
+setTimeout(() => ws.close(), 12000)
+setTimeout(() => app.close(), 12500)
