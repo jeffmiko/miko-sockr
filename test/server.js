@@ -27,6 +27,7 @@ app.on("error", (websocket, request, error, context) => {
 
 const cars = new SockrService()
 cars.find = function(params) { 
+  console.log("find params", params)
   return {
     forSale: 123
   }
@@ -34,15 +35,16 @@ cars.find = function(params) {
 let lastClient = {}
 app.use("cars", cars)
 app.hooks().before(SockrBeforeHooks.addStartTime())
-app.hooks().before(async(context)=> console.log("app before"))
-app.hooks().after(async(context)=> console.log("app after"))
+app.hooks().before(async(context)=> console.log("app before any service method"))
+app.hooks().after(async(context)=> console.log("app after all service methods"))
 app.hooks().after(SockrAfterHooks.addStopTime())
 app.hooks().after(SockrAfterHooks.addElapsedTime())
-app.service("cars").hooks().before(async(context)=> console.log("cars before"))
-app.service("cars").hooks().after(async(context)=> console.log("cars after"))
-app.service("cars").hooks("find").before(async (context) => console.log("cars find before"))
+app.service("cars").hooks().before(async(context)=> console.log("cars before all method"))
+app.service("cars").hooks().before(SockrBeforeHooks.stripParams(["updatedat","createdat"]))
+app.service("cars").hooks().after(async(context)=> console.log("cars after all methods"))
+app.service("cars").hooks("find").before(async (context) => console.log("cars before find method"))
 app.service("cars").hooks("find").after(async (context) => {
-  console.log("cars find after")
+  console.log("cars after find method")
   lastClient = context.client
   app.channel(channel).join(context.client)
 })
@@ -67,7 +69,8 @@ setTimeout(() => {
     },
     params: {
       make: "ford",
-      model: "ranger"
+      model: "ranger",
+      createdat: new Date()
     }
   }
   ws.send(JSON.stringify(msg));
