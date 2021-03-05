@@ -3,6 +3,7 @@ const { SockrService } = require("./lib/SockrService")
 const { SockrApp } = require("./lib/SockrApp")
 const { SockrRedisApp } = require("./lib/SockrRedisApp")
 const { SockrHookUtils, SockrAfterHooks, SockrBeforeHooks } = require("./lib/SockrHookUtils")
+const { SockrUtils } = require("./lib/SockrUtils")
 
 function create(options = {}) {
   const app = new SockrApp(options)
@@ -19,4 +20,4 @@ module.exports.SockrHookMethods = SockrHookMethods
 module.exports.SockrHookUtils = SockrHookUtils
 module.exports.SockrAfterHooks = SockrAfterHooks
 module.exports.SockrBeforeHooks = SockrBeforeHooks
-
+module.exports.SockrUtils = SockrUtils
