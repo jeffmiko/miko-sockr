@@ -1,6 +1,7 @@
 const { SockrHooks, SockrHookMethods } = require("./lib/SockrHooks")
 const { SockrService } = require("./lib/SockrService")
-const { SockrApp, SockrAuth } = require("./lib/SockrApp")
+const { SockrApp } = require("./lib/SockrApp")
+const { SockrAuth } = require("./lib/SockrAuth")
 const { SockrRedisApp } = require("./lib/SockrRedisApp")
 const { SockrHookUtils, SockrAfterHooks, SockrBeforeHooks } = require("./lib/SockrHookUtils")
 const { SockrUtils } = require("./lib/SockrUtils")
