@@ -8,6 +8,24 @@ const { SockrBeforeHooks, SockrAfterHooks } = require("../lib/SockrHookUtils")
 const app = new SockrApp()
 //const app = new SockrRedisApp()
 
+app.redirect(/\/status.*/i, async (websocket, request) => {
+  console.log("redirect", request.url, websocket.id)
+  let data = JSON.stringify(app.getStatus(), null, 2)
+  websocket.send(data)
+  websocket.close()
+  request.socket.destroy()  
+})
+ 
+setTimeout(() => {
+  const wstest = new WebSocket('ws://localhost:8080/status');
+  wstest.on('open', function open() {
+  });
+  wstest.on('message', function incoming(data) {
+    console.log("status recv:",data);
+  });  
+}, 5000)
+
+
 // can attach to an http/https server
 const httpServer = http.createServer();
 app.attach(httpServer)
@@ -24,6 +42,7 @@ app.on("close", (websocket, request) => {
 app.on("error", (websocket, request, error, context) => {
   console.log("server error", error)
 })
+
 
 const cars = new SockrService()
 cars.find = function(params) { 
@@ -58,7 +77,7 @@ const channel = "contexts/12"
 const ws = new WebSocket('ws://localhost:8080?token='+token);
 ws.on('message', function incoming(data) {
   let obj = JSON.parse(data)
-  console.log("client recv",obj);
+  console.log("client recv:",obj);
 });
 
 setTimeout(() => {
