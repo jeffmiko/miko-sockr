@@ -12,11 +12,12 @@ Response from server to client
  - header      - Duplicate of request header
  - data        - The data to be sent to the client (optional)
  - error       - Any error that surfaced (optional)
+ - cached      - True if the response came from cache
 
 Context passed internally in SockerApp
  - request    - Request from client
  - response   - Response from server
  - client     - Client WebSocket connection
  - app        - The application
-
+ - stop       - Set to True to stop further processing
 
